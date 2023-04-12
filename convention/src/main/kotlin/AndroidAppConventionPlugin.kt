@@ -33,9 +33,12 @@ class AndroidAppConventionPlugin : Plugin<Project> {
                         1
                     }
                     versionName = try {
-                       "[0-9].[0-9].[0-9]".toRegex().find( "git describe --tags".execute().text().trim())!!.value
+                        "\\d+(.\\d+){0,2}".toRegex()
+                            .find("git describe --tags".execute().text().trim())!!.value.also {
+                            logger.quiet("get version name $it")
+                        }
                     } catch (e: Throwable) {
-                        print("get version code error $e")
+                        logger.error("get version code error $e")
                         "0.0.1"
                     }
                 }
