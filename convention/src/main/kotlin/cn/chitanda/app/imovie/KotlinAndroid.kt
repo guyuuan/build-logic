@@ -1,7 +1,6 @@
 package cn.chitanda.app.imovie
 
 import com.android.build.api.dsl.CommonExtension
-import com.android.build.gradle.tasks.computeJavaSource
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
@@ -32,12 +31,13 @@ internal fun Project.configureKotlinAndroid(
             val warningsAsError: String? by project
             allWarningsAsErrors = warningsAsError.toBoolean()
 
-            freeCompilerArgs = freeCompilerArgs + listOf(
+            freeCompilerArgs += listOf(
                 "-opt-in=kotlin.RequiresOptIn",
                 // Enable experimental coroutines APIs, including Flow
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-opt-in=kotlinx.coroutines.FlowPreview",
                 "-opt-in=kotlin.Experimental",
+                "-Xcontext-receivers"
             )
 
             // Set JVM target to 11
