@@ -35,8 +35,8 @@ class AndroidAppConventionPlugin : Plugin<Project> {
                     versionName = try {
                         "\\d+(.\\d+){0,2}".toRegex()
                             .find("git describe --tags".execute().text().trim())!!.value.also {
-                            logger.quiet("get version name $it")
-                        }
+                                logger.quiet("get version name $it")
+                            }
                     } catch (e: Throwable) {
                         logger.error("get version code error $e")
                         "0.0.1"
@@ -45,15 +45,22 @@ class AndroidAppConventionPlugin : Plugin<Project> {
 //                configureFlavors(this)
                 val propertiesFile = file("${project.rootProject.projectDir}/local.properties")
                 if (propertiesFile.exists()) {
-                    signingConfigs.create("chitanda") {
-                        val properties = Properties().apply {
-                            load(propertiesFile.inputStream())
+                    val properties = Properties().apply {
+                        load(propertiesFile.inputStream())
+                    }
+                    val storePassword = properties.getProperty("sign.store.pwd")
+                    val keyAlias = properties.getProperty("sign.key.alias")
+                    val keyPassword = properties.getProperty("sign.key.pwd")
+                    if (storePassword != null && keyPassword != null && keyAlias != null) {
+                        signingConfigs.create("chitanda") {
+                            storeFile =
+                                File("${project.rootProject.projectDir.absolutePath}/build-logic/chitanda")
+                            this.storePassword = storePassword
+                            this.keyAlias = keyAlias
+                            this.keyPassword = keyPassword
                         }
-                        storeFile =
-                            File("${project.rootProject.projectDir.absolutePath}/build-logic/chitanda")
-                        storePassword = properties.getProperty("sign.store.pwd")!!
-                        keyAlias = properties.getProperty("sign.key.alias")!!
-                        keyPassword = properties.getProperty("sign.key.pwd")!!
+                    } else {
+                        logger.error("please add sign config in local.properties")
                     }
                 }
             }
