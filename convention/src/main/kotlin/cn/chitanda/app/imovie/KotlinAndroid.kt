@@ -40,7 +40,7 @@ internal fun Project.configureKotlinAndroid(
                 "-Xcontext-receivers"
             )
 
-            // Set JVM target to 11
+            // Set JVM target to 17
             jvmTarget = JavaVersion.VERSION_17.toString()
         }
 //        val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")

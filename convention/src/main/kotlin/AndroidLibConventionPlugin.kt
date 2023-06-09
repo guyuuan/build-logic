@@ -30,13 +30,13 @@ class AndroidLibConventionPlugin : Plugin<Project> {
             }
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-//            configurations.configureEach {
-//                resolutionStrategy {
-//                    force(libs.findLibrary("junit4"))
-//                    // Temporary workaround for https://issuetracker.google.com/174733673
-//                    //force("org.objenesis:objenesis:2.6")
-//                }
-//            }
+            configurations.configureEach {
+                resolutionStrategy {
+                    force(libs.findLibrary("junit4").get())
+                    // Temporary workaround for https://issuetracker.google.com/174733673
+                    force("org.objenesis:objenesis:2.6")
+                }
+            }
             dependencies {
                 add("androidTestImplementation", kotlin("test"))
                 add("testImplementation", kotlin("test"))
