@@ -1,7 +1,7 @@
-plugins{
+plugins {
     `kotlin-dsl`
 }
-group = "cn.chitanda.app.imovie.buildlogic"
+group = "cn.chitanda.app.imovie.build-logic"
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
