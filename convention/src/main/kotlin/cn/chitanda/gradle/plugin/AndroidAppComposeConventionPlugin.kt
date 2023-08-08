@@ -1,4 +1,6 @@
-import cn.chitanda.app.imovie.configureAndroidCompose
+package cn.chitanda.gradle.plugin
+
+import cn.chitanda.gradle.plugin.extension.configureAndroidCompose
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project

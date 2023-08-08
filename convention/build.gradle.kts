@@ -1,46 +1,49 @@
 plugins {
     `kotlin-dsl`
 }
-group = "cn.chitanda.app.imovie.build-logic"
+group = "cn.chitanda.gradle.build-logic"
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
+    compileOnly(kotlin("gradle-plugin-api"))
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
 }
 
-gradlePlugin{
-    plugins{
-        register("androidAppCompose"){
-            id = "chitanda.android.app.compose"
-            implementationClass = "AndroidAppComposeConventionPlugin"
-        }
-        register("androidApp"){
-            id = "chitanda.android.app"
-            implementationClass = "AndroidAppConventionPlugin"
-        }
-        register("androidLibCompose"){
-            id = "chitanda.android.lib.compose"
-            implementationClass = "AndroidLibComposeConventionPlugin"
-        }
-        register("androidLib"){
-            id = "chitanda.android.lib"
-            implementationClass = "AndroidLibConventionPlugin"
-        }
-        register("androidFeature"){
-            id = "chitanda.android.feature"
-            implementationClass = "AndroidFeatureConventionPlugin"
-        }
-        register("androidHilt"){
-            id= "chitanda.android.hilt"
-            implementationClass = "AndroidHiltConventionPlugin"
-        }
-        register("androidTest"){
-            id = "chitanda.android.test"
-            implementationClass = "AndroidTestConventionPlugin"
+gradlePlugin {
+    plugins {
+        with(libs.plugins.chitanda.android) {
+            create("androidAppCompose") {
+                id = app.compose.get().pluginId
+                implementationClass = "cn.chitanda.gradle.plugin.AndroidAppComposeConventionPlugin"
+            }
+            register("androidApp") {
+                id = app.asProvider().get().pluginId
+                implementationClass = "cn.chitanda.gradle.plugin.AndroidAppConventionPlugin"
+            }
+            register("androidLibCompose") {
+                id = lib.compose.get().pluginId
+                implementationClass = "cn.chitanda.gradle.plugin.AndroidLibComposeConventionPlugin"
+            }
+            register("androidLib") {
+                id = lib.asProvider().get().pluginId
+                implementationClass = "cn.chitanda.gradle.plugin.AndroidLibConventionPlugin"
+            }
+            register("androidFeature") {
+                id = feature.get().pluginId
+                implementationClass = "cn.chitanda.gradle.plugin.AndroidFeatureConventionPlugin"
+            }
+            register("androidHilt") {
+                id = hilt.get().pluginId
+                implementationClass = "cn.chitanda.gradle.plugin.AndroidHiltConventionPlugin"
+            }
+            register("androidTest") {
+                id = test.get().pluginId
+                implementationClass = "cn.chitanda.gradle.plugin.AndroidTestConventionPlugin"
+            }
         }
 
     }

@@ -1,13 +1,13 @@
+package cn.chitanda.gradle.plugin
+
 /**
  *@author: Chen
  *@createTime: 2022/11/13 19:35
  *@description:
  **/
-import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 

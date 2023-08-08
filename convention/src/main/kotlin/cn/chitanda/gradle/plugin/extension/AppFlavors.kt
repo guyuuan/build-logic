@@ -1,4 +1,4 @@
-package cn.chitanda.app.imovie
+package cn.chitanda.gradle.plugin.extension
 
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.ProductFlavor
@@ -22,7 +22,7 @@ enum class FlavorDimension {
 }
 
 fun Project.configureFlavors(
-    commonExtension: CommonExtension<*, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *,*>,
     flavorConfigurationBlock: ProductFlavor.(flavor: AppFlavors) -> Unit = {}
 ) {
     commonExtension.apply {

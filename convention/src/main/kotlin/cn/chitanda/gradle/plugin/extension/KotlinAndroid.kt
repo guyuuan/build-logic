@@ -1,4 +1,4 @@
-package cn.chitanda.app.imovie
+package cn.chitanda.gradle.plugin.extension
 
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.JavaVersion
@@ -13,7 +13,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
  *@description:
  **/
 internal fun Project.configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *>
+    commonExtension: CommonExtension<*, *, *, *,*>
 ) {
     commonExtension.apply {
         compileSdk = 33
@@ -53,6 +53,6 @@ internal fun Project.configureKotlinAndroid(
     }
 }
 
-internal fun CommonExtension<*, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
+internal fun CommonExtension<*, *, *, *,*>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
     (this as ExtensionAware).extensions.configure("kotlinOptions", block)
 }

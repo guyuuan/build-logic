@@ -1,6 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
-import cn.chitanda.app.imovie.configureKotlinAndroid
+package cn.chitanda.gradle.plugin
+
+import cn.chitanda.gradle.plugin.extension.configureKotlinAndroid
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project

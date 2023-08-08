@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-package cn.chitanda.app.imovie
+package cn.chitanda.gradle.plugin.extension
 
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
@@ -10,7 +10,7 @@ import org.gradle.kotlin.dsl.getByType
 import java.io.File
 
 internal fun Project.configureAndroidCompose(
-    commonExtension: CommonExtension<*, *, *, *>
+    commonExtension: CommonExtension<*, *, *, *,*>
 ) {
     val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
     commonExtension.apply {

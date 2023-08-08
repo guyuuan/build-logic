@@ -1,4 +1,6 @@
-import cn.chitanda.app.imovie.configureKotlinAndroid
+package cn.chitanda.gradle.plugin
+
+import cn.chitanda.gradle.plugin.extension.configureKotlinAndroid
 import com.android.build.gradle.TestExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
