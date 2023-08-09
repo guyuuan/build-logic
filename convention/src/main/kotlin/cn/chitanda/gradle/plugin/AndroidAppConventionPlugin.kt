@@ -28,7 +28,7 @@ class AndroidAppConventionPlugin : Plugin<Project> {
 
                 configureKotlinAndroid(this)
                 defaultConfig {
-                    targetSdk = 33
+                    targetSdk = 34
                     versionCode = try {
                         "git rev-list HEAD --first-parent --count".execute().text().trim().toInt()
                     } catch (_: Throwable) {
