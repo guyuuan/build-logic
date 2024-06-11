@@ -29,23 +29,25 @@ class AndroidAppConventionPlugin : Plugin<Project> {
                 configureKotlinAndroid(this)
                 defaultConfig {
                     targetSdk = 34
-                    versionCode = try {
-                        "git rev-list HEAD --first-parent --count".execute().text().trim().toInt()
-                    } catch (_: Throwable) {
-                        1
-                    }
-                    versionName = try {
-                        "\\d+(.\\d+){0,2}".toRegex()
-                            .find("git describe --tags".execute().text().trim())!!.value.also {
-                                logger.quiet("get version name $it")
-                            }
-                    } catch (e: Throwable) {
-                        logger.error("get version code error $e")
-                        "0.0.1"
-                    }
+                    versionCode = 1
+                    versionName = "1.0"
+//                    versionCode = try {
+//                        "git rev-list HEAD --first-parent --count".execute().text().trim().toInt()
+//                    } catch (_: Throwable) {
+//                        1
+//                    }
+//                    versionName = try {
+//                        "\\d+(.\\d+){0,2}".toRegex()
+//                            .find("git describe --tags".execute().text().trim())!!.value.also {
+//                                logger.quiet("get version name $it")
+//                            }
+//                    } catch (e: Throwable) {
+//                        logger.error("get version code error $e")
+//                        "0.0.1"
+//                    }
                 }
 //                configureFlavors(this)
-                val propertiesFile = file("${project.rootProject.projectDir}/local.properties")
+                val propertiesFile = file("${project.rootProject.projectDir}/local.propertiess")
                 if (propertiesFile.exists()) {
                     val properties = Properties().apply {
                         load(propertiesFile.inputStream())

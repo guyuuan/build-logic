@@ -22,7 +22,7 @@ enum class FlavorDimension {
 }
 
 fun Project.configureFlavors(
-    commonExtension: CommonExtension<*, *, *, *,*>,
+    commonExtension: CommonExtension<*, *, *,*, *,*>,
     flavorConfigurationBlock: ProductFlavor.(flavor: AppFlavors) -> Unit = {}
 ) {
     commonExtension.apply {
