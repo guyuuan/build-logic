@@ -23,34 +23,50 @@ class AndroidAppConventionPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
             }
             extensions.configure<ApplicationExtension> {
-
+                val isWindows = System.getProperty("os.name").contains("Windows")
                 configureKotlinAndroid(this)
                 defaultConfig {
                     targetSdk = 34
                     versionCode = try {
                         providers.exec {
-                            commandLine(
-                                "/bin/sh",
-                                "-c",
-                                "echo `git rev-list HEAD --first-parent --count`"
-                            )
-                        }.standardOutput.asText.get().trim().toInt()
+                            if (isWindows) {
+                                commandLine(
+                                    "git",
+                                    "rev-list",
+                                    "HEAD",
+                                    "--first-parent",
+                                    "--count"
+                                )
+                            } else {
+                                commandLine(
+                                    "/bin/sh",
+                                    "-c",
+                                    "echo `git rev-list HEAD --first-parent --count`"
+                                )
+                            }
+                        }.standardOutput.asText.get().trim().toInt().also {
+                            logger.warn("get version code $it")
+                        }
                     } catch (t: Throwable) {
                         logger.error("get version code error $t")
                         1
                     }
                     versionName = try {
-                        "\\d+(.\\d+){0,2}".toRegex()
+                        "\\d+(\\.\\d+)+".toRegex()
                             .find(
                                 providers.exec {
-                                    commandLine("/bin/sh", "-c", "echo `git describe --tags`")
+                                    if (isWindows) {
+                                        commandLine("git", "describe", "--tags")
+                                    } else {
+                                        commandLine("/bin/sh", "-c", "echo `git describe --tags`")
+                                    }
                                 }.standardOutput.asText.get().trim()
                             )!!.value.also {
-                                logger.quiet("get version name $it")
+                                logger.warn("get version name $it")
                             }
                     } catch (e: Throwable) {
                         logger.error("get version name error $e")
-                        "0.0.1"
+                        "development"
                     }
                 }
 //                configureFlavors(this)
