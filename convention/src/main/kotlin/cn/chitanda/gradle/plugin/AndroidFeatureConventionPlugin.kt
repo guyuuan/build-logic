@@ -16,6 +16,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply {
                 apply("chitanda.android.lib")
+                apply("chitanda.android.lib.compose")
                 apply("chitanda.android.hilt")
             }
 //            extensions.configure<LibraryExtension> {
@@ -27,22 +28,22 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
             dependencies {
-                add("implementation", project(":core:model"))
+//                add("implementation", project(":core:model"))
                 add("implementation", project(":core:ui"))
-                add("implementation", project(":core:design"))
+//                add("implementation", project(":core:design"))
                 add("implementation", project(":core:data"))
-                add("implementation", project(":core:common"))
+//                add("implementation", project(":core:common"))
 //                add("implementation", project(":core:domain"))
 //
 //                add("testImplementation", project(":core:testing"))
 //                add("androidTestImplementation", project(":core:testing"))
 //
-                add("implementation", libs.findLibrary("coil.kt").get())
-                add("implementation", libs.findLibrary("coil.kt.compose").get())
+//                add("implementation", libs.findLibrary("coil.kt").get())
+                add("implementation", libs.findLibrary("coil.compose").get())
 
                 add("implementation", libs.findLibrary("androidx.hilt.navigation.compose").get())
-                add("implementation", libs.findLibrary("androidx.lifecycle.runtimeCompose").get())
-                add("implementation", libs.findLibrary("androidx.lifecycle.viewModelCompose").get())
+                add("implementation", libs.findLibrary("androidx.lifecycle.runtime.compose").get())
+                add("implementation", libs.findLibrary("androidx.lifecycle.viewmodel.compose").get())
 
                 add("implementation", libs.findLibrary("kotlinx.coroutines.android").get())
             }

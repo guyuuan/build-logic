@@ -16,6 +16,8 @@ class AndroidLibComposeConventionPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply("com.android.library")
             pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
+            pluginManager.apply("com.google.devtools.ksp")
+
             val extension = extensions.getByType<LibraryExtension>()
             configureAndroidCompose(extension)
         }
