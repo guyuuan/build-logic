@@ -82,9 +82,10 @@ private inline fun <reified T : KotlinTopLevelExtension> Project.configureKotlin
         jvmTarget = JvmTarget.JVM_17
         jvmToolchain(17)
         allWarningsAsErrors = warningsAsErrors.toBoolean()
-        freeCompilerArgs.add(
+        freeCompilerArgs.addAll(
             // Enable experimental coroutines APIs, including Flow
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-Xcontext-receivers"
         )
     }
 }
